@@ -1,0 +1,2 @@
+class GameBoard
+end
