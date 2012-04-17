@@ -1,6 +1,7 @@
 class Player
   attr_reader :name
   attr_reader :max_health, :health, :level, :strength, :defense, :alive
+  attr_accessor :status
 
   LEVEL_THRESHOLDS = [ 50, 100, 200, 500, 1000, 1500, 2500, 4000]
   HEALTH_INDEX     = [100, 110, 125, 145,  170,  195,  225,  260]
@@ -9,6 +10,7 @@ class Player
 
   def initialize(args={})
     @name = args[:name]
+    @status = :idle
     @health = 100
     @level = 0
     @max_health = HEALTH_INDEX[@level]
@@ -16,6 +18,14 @@ class Player
     @defense = DEFENSE_INDEX[@level]
     @experience = 0
     @alive = true
+  end
+
+  def ready
+    @status = :ready unless ready?
+  end
+
+  def ready?
+    @status != :idle
   end
 
   # the attack move
