@@ -12,7 +12,8 @@ class GameBoard
   end
 
   def player_list
-    @board.reduce({}){|a,v| a[v[0]] = {:stats => v[1].stats}; a}
+    {}.tap{|h| @board.each{|n,p| h[n] = {:stats => p.stats}}}
+    #@board.reduce({}){|a,v| a[v[0]] = {:stats => v[1].stats}; a}
   end
 
   def start
