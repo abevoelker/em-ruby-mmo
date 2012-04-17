@@ -1,6 +1,9 @@
 require 'eventmachine'
+require 'json'
 
 class GameBoard
+
+  attr_reader :move_channel
 
   def initialize
     @board = {}
@@ -8,8 +11,15 @@ class GameBoard
     @state = :not_started
   end
 
+  def player_list
+    @board.reduce({}){|a,v| a[v[0]] = {:stats => v[1].stats}; a}
+  end
+
   def start
-    @state = :running unless game_started?
+    return false if game_started?
+    @state = :running
+    @board.to_a.shuffle.each do |p|
+    end
   end
 
   def add_player(p)
