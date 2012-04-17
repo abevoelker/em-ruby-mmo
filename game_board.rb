@@ -3,7 +3,7 @@ require 'eventmachine'
 class GameBoard
 
   def initialize
-    @board = []
+    @board = {}
     @move_channel = EM::Channel.new
     @state = :not_started
   end
@@ -13,7 +13,11 @@ class GameBoard
   end
 
   def add_player(p)
-    @board << p if !game_started?
+    @board[p.name] = p if !game_started?
+  end
+
+  def remove_player(p)
+    @board.delete(p.name)
   end
 
   def game_started?

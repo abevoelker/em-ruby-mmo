@@ -27,6 +27,13 @@ module EventMachine
         end
       end
 
+      def unbind
+        if @player
+          game_board.remove_player(@player)
+          puts "Player '#{@player.name}' left"
+        end
+      end
+
       def process_join name
         if @player
           send_data "500 You've already joined, #{@player.name}\r\n"
