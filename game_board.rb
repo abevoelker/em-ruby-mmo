@@ -9,11 +9,11 @@ class GameBoard
     @board = {}
     @move_channel = EM::Channel.new
     @state = :not_started
+    @insert_counter = 0
   end
 
   def player_list
-    {}.tap{|h| @board.each{|n,p| h[n] = {:stats => p.stats}}}
-    #@board.reduce({}){|a,v| a[v[0]] = {:stats => v[1].stats}; a}
+    {}.tap{|h| @board.each{|i,p| h[i] = {:name => p.name, :stats => p.stats}}}
   end
 
   def start
@@ -24,11 +24,14 @@ class GameBoard
   end
 
   def add_player(p)
-    @board[p.name] = p if !game_started?
+    @insert_counter.tap do
+      @board[@insert_counter] = p if !game_started?
+      @insert_counter += 1
+    end
   end
 
-  def remove_player(p)
-    @board.delete(p.name)
+  def remove_player(id)
+    @board.delete(id)
   end
 
   def game_started?

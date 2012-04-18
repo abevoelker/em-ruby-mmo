@@ -48,9 +48,9 @@ module EventMachine
           return
         end
         @player = Player.new({:name => name})
-        @game_board.add_player @player
-        puts "Player '#{name}' joined\r\n"
-        send_data "200 Welcome, #{name}\r\n"
+        @id = @game_board.add_player(@player)
+        puts "Player \##{@id} '#{name}' joined\r\n"
+        send_data "200 #{@id}\r\n"
       end
 
       def process_ready
