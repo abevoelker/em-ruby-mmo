@@ -24,7 +24,7 @@ module EventMachine
 
       def unbind
         if @player
-          game_board.remove_player(@player)
+          game_board.remove_player(@id)
           puts "Player '#{@player.name}' left"
         end
       end
