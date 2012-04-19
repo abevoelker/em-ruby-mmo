@@ -43,10 +43,8 @@ module EventMachine
       end
 
       def process_join name
-        if @player
-          send_data "500 You've already joined, #{@player.name}\r\n"
-          return
-        end
+        return send_data("500 You've already joined, #{@player.name}\r\n") if @player
+        return send_data("500 The game has already started.") if @game_board.game_started?
         @player = Player.new({:name => name})
         @id = @game_board.add_player(@player)
         puts "Player \##{@id} '#{name}' joined\r\n"
