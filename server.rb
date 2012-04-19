@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require './protocol/mmo_server'
 require './game_board'
 
