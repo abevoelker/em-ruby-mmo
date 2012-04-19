@@ -6,31 +6,40 @@ class GameBoard
   attr_reader :move_channel
 
   def initialize
-    @board = {}
+    @players = {}
+    @board = []
     @move_channel = EM::Channel.new
     @state = :not_started
     @insert_counter = 0
   end
 
   def player_list
-    {}.tap{|h| @board.each{|i,p| h[i] = {:name => p.name, :stats => p.stats}}}
+    {}.tap{|h| @players.each{|i,p| h[i] = {:name => p.name, :stats => p.stats}}}
   end
 
   def start
     return false if game_started?
     @state = :running
-    @board.to_a.shuffle.each do |p|
+    run
+  end
+
+  def run
+    return false if @state != :running
+    @board.shuffle.each do |pid|
     end
   end
 
   def add_player(p)
+    return false if game_started?
     @insert_counter.tap do
-      @board[@insert_counter] = p if !game_started?
+      @players[@insert_counter] = p
+      @board << @insert_counter
       @insert_counter += 1
     end
   end
 
   def remove_player(id)
+    @players.delete(id)
     @board.delete(id)
   end
 
