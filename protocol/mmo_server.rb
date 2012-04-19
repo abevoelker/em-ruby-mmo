@@ -59,7 +59,7 @@ module EventMachine
           send_data("200 OK\r\n")
         else
           send_data("500 You haven't joined yet\r\n") && return unless @player
-          send_data("500 Slow your roll there, SpongeBob @_@\r\n") if @player.ready?
+          send_data("500 You're already ready... chill out\r\n") if @player.ready?
         end
       end
 
