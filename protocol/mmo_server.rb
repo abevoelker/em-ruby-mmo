@@ -39,6 +39,8 @@ module EventMachine
           process_ready
         when PlayerListRegex
           process_player_list
+        else
+          send_data "500 Invalid request\r\n"
         end
       end
 
